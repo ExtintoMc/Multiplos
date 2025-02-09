@@ -1,0 +1,34 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  min-width: 70px;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 4px white solid;
+  border-radius: 20px;
+  p {
+    margin: 1px;
+    color: burlywood;
+  }
+}
+
+.multiple3 {
+  border: 4px green solid;
+}
+
+.multiple5 {
+  border: 4px red solid;
+}
+
+.multiple7 {
+  border: 4px blue solid;
+}

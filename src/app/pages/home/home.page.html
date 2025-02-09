@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Múltiplos </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <h1>¡Bienvenido!</h1>
+    <p>Ingresa un número para comenzar:</p>
+
+    <form [formGroup]="form">
+      <ion-item>
+        <ion-input type="number" formControlName="number" min="0"></ion-input>
+      </ion-item>
+    </form>
+
+    <ion-button (click)="list()">hola</ion-button>
+
+    {{form.value.number}}
+
+    <div *ngFor="let item of listNumber" style="display: flex">
+      <div
+        class="list"
+        [ngClass]="listClass(item.multiple ? item.multiple[0]: 0)"
+      >
+        <p>{{item.number}}</p>
+        <p>{{item.multiple?.join(', ')}}</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

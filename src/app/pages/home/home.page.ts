@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   IonHeader,
@@ -10,8 +10,14 @@ import {
   IonInput,
   IonItem,
 } from '@ionic/angular/standalone';
+import { FirebaseService } from 'src/app/common/services/firebase/firebase.service';
 
-interface listNumber {
+interface numbers {
+  number: number;
+  multiples: ListMultiples;
+}
+
+interface ListMultiples {
   number: number;
   multiple?: number[];
 }
@@ -33,7 +39,9 @@ interface listNumber {
   ],
 })
 export class HomePage {
-  listNumber: listNumber[] = [];
+  fireService = inject(FirebaseService);
+
+  ListMultiples: ListMultiples[] = [];
 
   form = new FormGroup({
     number: new FormControl(),
@@ -43,26 +51,31 @@ export class HomePage {
 
   list() {
     const number = this.form.value.number;
-    this.listNumber = [];
+    this.ListMultiples = [];
 
     if (number !== 0) {
       for (let i = 0; i <= number; i++) {
-        const multiples: number[] = [];
+        const ListMultiples: number[] = [];
 
         if (i % 3 === 0) {
-          multiples.push(3);
+          ListMultiples.push(3);
         }
         if (i % 5 === 0) {
-          multiples.push(5);
+          ListMultiples.push(5);
         }
         if (i % 7 === 0) {
-          multiples.push(7);
+          ListMultiples.push(7);
         }
 
-        this.listNumber.push({ number: i, multiple: multiples });
+        this.ListMultiples.push({ number: i, multiple: ListMultiples });
       }
+
+      this.fireService.createNumber({
+        number: number,
+        multiples: this.ListMultiples,
+      });
     }
-    console.log(this.listNumber);
+    console.log(this.ListMultiples);
   }
 
   listClass(multiple: number): string {

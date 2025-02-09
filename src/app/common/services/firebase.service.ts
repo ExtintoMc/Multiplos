@@ -20,8 +20,6 @@ export class FirebaseService {
   }
 
   async createNumber(data: Numbers) {
-    console.log(data.initialValue, 'si esta');
-
     const collectionRef = collection(this.firestore, '/numbers');
     const q = query(
       collectionRef,
@@ -32,13 +30,13 @@ export class FirebaseService {
       const number = await getDocs(q);
 
       if (!number.empty) {
-        console.log('ya existe');
-        return;
+        return false;
       }
 
       await addDoc(collectionRef, data);
-    } catch (error) {
-      console.log(error);
+      return true;
+    } catch {
+      return false;
     }
   }
 }

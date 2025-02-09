@@ -5,6 +5,10 @@
   justify-content: center;
   padding: 0px 20px 0px 20px;
 
+  h1 {
+    font-weight: 800;
+  }
+
   p {
     text-align: center;
   }
@@ -16,9 +20,14 @@
     max-width: 400px;
   }
 
+  ion-button {
+    --background: #f08181;
+    --border-radius: 10px;
+  }
+
   ion-input {
     --background: white;
-    --highlight-color: blue;
+    --highlight-color: #f08181;
   }
 
   app-card {
@@ -26,21 +35,5 @@
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-}
-
-.list {
-  min-width: 70px;
-  height: 70px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  border: 4px white solid;
-  border-radius: 20px;
-  p {
-    margin: 1px;
-    color: burlywood;
   }
 }

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -8,6 +7,8 @@ import {
   IonContent,
   IonButton,
   IonInput,
+  IonSpinner,
+  IonToast,
 } from '@ionic/angular/standalone';
 import { Multiples, Numbers } from 'src/app/common/models/numbers.model';
 import { FirebaseService } from 'src/app/common/services/firebase.service';
@@ -25,14 +26,16 @@ import { CardComponent } from 'src/app/components/card/card.component';
     IonButton,
     IonInput,
     ReactiveFormsModule,
-    CommonModule,
     CardComponent,
+    IonSpinner,
+    IonToast,
   ],
 })
 export class HomePage {
   fireService = inject(FirebaseService);
 
   ListNumbers: Numbers[] = [];
+  Message: string | null = null;
 
   form = new FormGroup({
     number: new FormControl(),
@@ -42,16 +45,16 @@ export class HomePage {
 
   ngOnInit() {
     this.fireService.getNumbers().subscribe((data) => {
-      this.ListNumbers = data;
-      console.log(data);
+      const orderNumbers = data.sort((a, b) => a.initialValue - b.initialValue);
+      this.ListNumbers = orderNumbers;
     });
   }
 
-  list() {
+  async createNumber() {
     const number = this.form.value.number;
     const ListMultiples: Multiples[] = [];
 
-    if (number !== 0 || number !== null) {
+    if (number !== 0 && number !== null) {
       for (let i = 0; i <= number; i++) {
         const multiples: number[] = [];
         if (i % 3 === 0) {
@@ -66,23 +69,29 @@ export class HomePage {
         ListMultiples.push({ number: i, multiple: multiples });
       }
 
-      this.fireService.createNumber({
-        initialValue: number,
-        multiples: ListMultiples,
-      });
+      try {
+        const res = await this.fireService.createNumber({
+          initialValue: number,
+          multiples: ListMultiples,
+        });
+
+        if (!res) {
+          this.openToast('El numero ingresado ya esta registrado');
+        } else {
+          this.openToast('Se a creado el componente correctamente');
+        }
+      } catch {
+        this.openToast('A ocurrido un error intenta de nuevo');
+      }
+    } else {
+      this.openToast('El numero ingresado no es valido');
     }
   }
 
-  listClass(multiple: number ): string {
-    if (multiple === 3) {
-      return 'multiple3';
-    }
-    if (multiple === 5) {
-      return 'multiple5';
-    }
-    if (multiple === 7) {
-      return 'multiple7';
-    }
-    return '';
+  openToast(message: string) {
+    this.Message = message;
+    setTimeout(() => {
+      this.Message = null;
+    }, 3000);
   }
 }

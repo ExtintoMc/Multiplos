@@ -1,7 +1,7 @@
-<div *ngIf="multiples" id="Container">
-  @if (multiples !== null ) {
+<div id="Container">
+  @if (multiples) {
   <section class="Title">
-    <h3>Numero {{ multiples.initialValue }}</h3>
+    <h3>Número {{ multiples.initialValue }}</h3>
   </section>
   <section class="Items">
     @for (item of multiples.multiples; track $index) {

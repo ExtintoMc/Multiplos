@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { Multiples, Numbers } from 'src/app/common/models/numbers.model';
+import { Numbers } from 'src/app/common/models/numbers.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card',

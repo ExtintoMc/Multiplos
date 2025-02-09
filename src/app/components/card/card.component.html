@@ -1,0 +1,17 @@
+<div *ngIf="multiples" id="Container">
+  @if (multiples !== null ) {
+  <section class="Title">
+    <h3>Numero {{ multiples.initialValue }}</h3>
+  </section>
+  <section class="Items">
+    @for (item of multiples.multiples; track $index) {
+    <div
+      class="Item"
+      [ngClass]="listClass(item.multiple ? item.multiple[0] : 0)"
+    >
+      {{ item.number }}
+    </div>
+    }
+  </section>
+  }
+</div>

@@ -1,0 +1,70 @@
+#Container {
+  width: 100%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin: 10px 0px 10px 0px;
+}
+
+.Title {
+  background-color: #f08181;
+  color: white;
+  h3 {
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+    text-align: center;
+    font-weight: 700;
+  }
+}
+
+.Items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.Item {
+  background-color: #f1f1f1;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.Item:hover {
+  background-color: black;
+  color: white;
+}
+
+.multiple3 {
+  border: 2px rgb(100, 200, 100) solid;
+  color: rgb(100, 200, 100);
+}
+.multiple3:hover {
+  background-color: rgb(100, 200, 100);
+  color: white;
+}
+
+.multiple5 {
+  border: 2px rgb(200, 100, 100) solid;
+  color: rgb(200, 100, 100);
+}
+.multiple5:hover {
+  background-color: rgb(200, 100, 100);
+  color: white;
+}
+
+.multiple7 {
+  border: 2px rgb(70, 70, 150) solid;
+  color: rgb(70, 70, 150);
+}
+.multiple7:hover {
+  background-color: rgb(70, 70, 150);
+  color: white;
+}

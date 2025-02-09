@@ -7,26 +7,23 @@
 <ion-content [fullscreen]="true">
   <div id="container">
     <h1>¡Bienvenido!</h1>
-    <p>Ingresa un número para comenzar:</p>
+    <p>Ingresa un número mayor a 0 para ver sus multiplos:</p>
 
     <form [formGroup]="form">
-      <ion-item>
-        <ion-input type="number" formControlName="number" min="0"></ion-input>
-      </ion-item>
+      <ion-input
+        label="Numero"
+        type="number"
+        formControlName="number"
+        fill="solid"
+        labelPlacement="floating"
+        helperText="Numero mayor a 0"
+        min="0"
+      ></ion-input>
     </form>
 
-    <ion-button (click)="list()">hola</ion-button>
-
-    {{form.value.number}}
-
-    <div *ngFor="let item of ListMultiples" style="display: flex">
-      <div
-        class="list"
-        [ngClass]="listClass(item.multiple ? item.multiple[0]: 0)"
-      >
-        <p>{{item.number}}</p>
-        <p>{{item.multiple?.join(', ')}}</p>
-      </div>
-    </div>
+    <ion-button (click)="list()">Agregar numero</ion-button>
+    @for (item of ListNumbers; track $index) {
+    <app-card [multiples]="item" />
+    }
   </div>
 </ion-content>

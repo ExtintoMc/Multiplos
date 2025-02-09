@@ -3,6 +3,30 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 0px 20px 0px 20px;
+
+  p {
+    text-align: center;
+  }
+
+  ion-button,
+  form {
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  ion-input {
+    --background: white;
+    --highlight-color: blue;
+  }
+
+  app-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .list {
@@ -19,16 +43,4 @@
     margin: 1px;
     color: burlywood;
   }
-}
-
-.multiple3 {
-  border: 4px green solid;
-}
-
-.multiple5 {
-  border: 4px red solid;
-}
-
-.multiple7 {
-  border: 4px blue solid;
 }

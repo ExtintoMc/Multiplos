@@ -8,19 +8,10 @@ import {
   IonContent,
   IonButton,
   IonInput,
-  IonItem,
 } from '@ionic/angular/standalone';
-import { FirebaseService } from 'src/app/common/services/firebase/firebase.service';
-
-interface numbers {
-  number: number;
-  multiples: ListMultiples;
-}
-
-interface ListMultiples {
-  number: number;
-  multiple?: number[];
-}
+import { Multiples, Numbers } from 'src/app/common/models/numbers.model';
+import { FirebaseService } from 'src/app/common/services/firebase.service';
+import { CardComponent } from 'src/app/components/card/card.component';
 
 @Component({
   selector: 'app-home',
@@ -32,16 +23,16 @@ interface ListMultiples {
     IonTitle,
     IonContent,
     IonButton,
-    IonItem,
     IonInput,
     ReactiveFormsModule,
     CommonModule,
+    CardComponent,
   ],
 })
 export class HomePage {
   fireService = inject(FirebaseService);
 
-  ListMultiples: ListMultiples[] = [];
+  ListNumbers: Numbers[] = [];
 
   form = new FormGroup({
     number: new FormControl(),
@@ -49,36 +40,40 @@ export class HomePage {
 
   constructor() {}
 
+  ngOnInit() {
+    this.fireService.getNumbers().subscribe((data) => {
+      this.ListNumbers = data;
+      console.log(data);
+    });
+  }
+
   list() {
     const number = this.form.value.number;
-    this.ListMultiples = [];
+    const ListMultiples: Multiples[] = [];
 
-    if (number !== 0) {
+    if (number !== 0 || number !== null) {
       for (let i = 0; i <= number; i++) {
-        const ListMultiples: number[] = [];
-
+        const multiples: number[] = [];
         if (i % 3 === 0) {
-          ListMultiples.push(3);
+          multiples.push(3);
         }
         if (i % 5 === 0) {
-          ListMultiples.push(5);
+          multiples.push(5);
         }
         if (i % 7 === 0) {
-          ListMultiples.push(7);
+          multiples.push(7);
         }
-
-        this.ListMultiples.push({ number: i, multiple: ListMultiples });
+        ListMultiples.push({ number: i, multiple: multiples });
       }
 
       this.fireService.createNumber({
-        number: number,
-        multiples: this.ListMultiples,
+        initialValue: number,
+        multiples: ListMultiples,
       });
     }
-    console.log(this.ListMultiples);
   }
 
-  listClass(multiple: number): string {
+  listClass(multiple: number ): string {
     if (multiple === 3) {
       return 'multiple3';
     }

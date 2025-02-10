@@ -9,12 +9,14 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class CardComponent implements OnInit {
+  //Recuperar valores insertados en el lugar donde se usan los componentes
   @Input() multiples: Numbers | null = null;
 
   constructor() {}
 
   ngOnInit() {}
 
+  //Función para aplicar el color según el primer múltiplo
   listClass(multiple: number): string {
     if (multiple === 3) {
       return 'multiple3';

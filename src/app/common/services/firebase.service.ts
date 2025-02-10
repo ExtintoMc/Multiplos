@@ -12,6 +12,7 @@ export class FirebaseService {
 
   constructor() {}
 
+  //Obtener números de la base de datos
   getNumbers(): Observable<Numbers[]> {
     const collectionRef = collection(this.firestore, '/numbers');
     return collectionData(collectionRef, { idField: 'id' }) as Observable<
@@ -19,6 +20,7 @@ export class FirebaseService {
     >;
   }
 
+  //Crear un nuevo número 
   async createNumber(data: Numbers) {
     const collectionRef = collection(this.firestore, '/numbers');
     const q = query(
@@ -29,6 +31,7 @@ export class FirebaseService {
     try {
       const number = await getDocs(q);
 
+      //Si el valor ya existe regresa false
       if (!number.empty) {
         return false;
       }
@@ -36,6 +39,7 @@ export class FirebaseService {
       await addDoc(collectionRef, data);
       return true;
     } catch {
+      //Si hay un error regresa false
       return false;
     }
   }
